@@ -5,12 +5,16 @@ const app = express();
 const formatMessage = require("./utils/message");
 const socketio = require("socket.io");
 const server = http.createServer(app);
-const port = 3000 || process.env.PORT;
+const port = process.env.PORT || 3000;
 const io = socketio(server);
 const chatBot = "Udrio";
 
 // Set static folder
 app.use(express.static(path.join(__dirname,"public")))
+
+app.get("/",(req,res)=>{
+    res.sendFile(__dirname+"/public/index");
+})
 
 // Run when client connects
 io.on("connection",socket=>{   
